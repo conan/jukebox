@@ -17,6 +17,6 @@ public class JukeboxService extends Service<JukeboxConfiguration> {
 
     @Override
     public void run(JukeboxConfiguration configuration, Environment environment) throws Exception {
-        //To change body of implemented methods use File | Settings | File Templates.
+        environment.addResource(new TrackResource());
     }
 }

@@ -16,15 +16,9 @@ import java.util.concurrent.atomic.AtomicLong;
 @Produces(MediaType.APPLICATION_JSON)
 public class TrackResource {
 
-    private final AtomicLong counter;
-
-    public TrackResource() {
-        this.counter = new AtomicLong();
-    }
-
     @GET
     @Timed
-    public Track getTrack(@QueryParam("trackId") Optional<String> trackId) {
+    public Track getTrack(@QueryParam("trackId") String trackId) {
         Track track = new Track();
         track.setTrackId(UUID.randomUUID().toString());
         track.setTitle("Planetary Funk Alert");
