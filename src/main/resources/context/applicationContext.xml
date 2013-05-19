@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config/>
+    <context:component-scan base-package="conan"/>
+    <aop:aspectj-autoproxy/>
+
+    <!-- Astyanax Configuration -->
+    <bean class="com.netflix.astyanax.impl.AstyanaxConfigurationImpl">
+        <property name="discoveryType">
+            <bean class="com.netflix.astyanax.connectionpool.NodeDiscoveryType$RING_DESCRIBE"/>
+        </property>
+        <property name="cqlVersion" value="3.0.0"/>
+        <property name="targetCassandraVersion" value="1.2"/>
+    </bean>
+
+    <!-- Connection pool configuration -->
+    <bean class="com.netflix.astyanax.connectionpool.impl.ConnectionPoolConfigurationImpl">
+        <constructor-arg name="name" value="JukeboxConnectionPool" />
+        <property name="port" value="9160"/>
+        <property name="maxConnsPerHost" value="1"/>
+        <property name="seeds" value="127.0.0.1:9160"/>
+    </bean>
+
+    <!-- Connection pool monitoring -->
+    <bean class="com.netflix.astyanax.connectionpool.impl.CountingConnectionPoolMonitor"/>
+
+    <!-- Keyspace -->
+    <bean class="conan.rocks.KeyspaceFactory" factory-method="createKeyspace">
+        <constructor-arg name="clusterName" value="jukeboxCluster"/>
+        <constructor-arg name="keyspaceName" value="jukebox"/>
+    </bean>
+
+    
+
+</beans>

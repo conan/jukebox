@@ -1,9 +1,10 @@
 package conan.rocks.domain;
 
-public class Track {
+public class TrackMeta {
 
     private String trackId;
-    private byte[] trackData;
+
+    private String url;
 
     public String getTrackId() {
         return trackId;
@@ -13,11 +14,11 @@ public class Track {
         this.trackId = trackId;
     }
 
-    public byte[] getTrackData() {
-        return trackData;
+    public String getUrl() {
+        return url;
     }
 
-    public void setTrackData(byte[] trackData) {
-        this.trackData = trackData;
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

@@ -1,30 +1,32 @@
 package conan.rocks;
 
-import com.google.common.base.Optional;
 import com.yammer.metrics.annotation.Timed;
-import conan.rocks.domain.Track;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import java.util.UUID;
-import java.util.concurrent.atomic.AtomicLong;
+import javax.ws.rs.core.Response;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
 
-@Path("/tracks")
-@Produces(MediaType.APPLICATION_JSON)
+@Path("/tracks/{trackId}")
+@Produces(MediaType.APPLICATION_OCTET_STREAM)
 public class TrackResource {
 
     @GET
     @Timed
-    public Track getTrack(@QueryParam("trackId") String trackId) {
-        Track track = new Track();
-        track.setTrackId(UUID.randomUUID().toString());
-        track.setTitle("Planetary Funk Alert");
-        track.setArtist("Seba");
-        track.setAlbum("Looking Back");
-        return track;
+    public Response getTrack(@PathParam("trackId") String trackId) throws URISyntaxException, IOException {
+        InputStream in = getClass().getClassLoader().getResourceAsStream("test.mp3");
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        while (in.available() > 0) {
+            out.write(in.read());
+        }
+
+        return Response.ok(out.toByteArray()).header("Content-Disposition", "attachment; filename=" + trackId + ".mp3").build();
     }
 
 }
