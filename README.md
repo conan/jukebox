@@ -1,1 +1,1 @@
-A sample project to test providing access to a Cassandra data store using a RESTful API, using [DropWizard](http://dropwizard.codahale.com/) and NetFlix's [Astyanax](https://github.com/Netflix/astyanax).
+A sample project to test providing access to a Cassandra data store using a RESTful API, using [DropWizard](http://dropwizard.codahale.com/) and the [DataStax Java Driver](https://github.com/datastax/java-driver).
