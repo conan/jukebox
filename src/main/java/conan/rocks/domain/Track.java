@@ -1,9 +1,11 @@
 package conan.rocks.domain;
 
+import java.nio.ByteBuffer;
+
 public class Track {
 
     private String trackId;
-    private byte[] trackData;
+    private ByteBuffer trackData;
 
     public String getTrackId() {
         return trackId;
@@ -13,11 +15,11 @@ public class Track {
         this.trackId = trackId;
     }
 
-    public byte[] getTrackData() {
+    public ByteBuffer getTrackData() {
         return trackData;
     }
 
-    public void setTrackData(byte[] trackData) {
+    public void setTrackData(ByteBuffer trackData) {
         this.trackData = trackData;
     }
 }
