@@ -1,4 +1,4 @@
-package conan.rocks;
+package conan.rocks.api;
 
 import com.yammer.metrics.annotation.Timed;
 

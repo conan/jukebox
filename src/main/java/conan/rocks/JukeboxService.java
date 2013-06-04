@@ -3,6 +3,7 @@ package conan.rocks;
 import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Environment;
+import conan.rocks.api.TrackResource;
 
 public class JukeboxService extends Service<JukeboxConfiguration> {
 
