@@ -26,7 +26,7 @@ public class TrackDao {
     private TrackMapper mapper;
 
     public Track getTrack(String trackId) {
-        PreparedStatement preparedStatement = session.prepare("SELECT * FROM Tracks WHERE id = ?");
+        PreparedStatement preparedStatement = session.prepare("SELECT * FROM jukebox.tracks WHERE id = ?");
         BoundStatement boundStatement = new BoundStatement(preparedStatement);
         boundStatement.bind(UUID.fromString(trackId));
         ResultSet resultSet = session.execute(boundStatement);
@@ -39,6 +39,10 @@ public class TrackDao {
     }
 
     public void putTrack(Track track) {
-        // TODO
+        PreparedStatement preparedStatement = session.prepare(
+                "INSERT INTO jukebox.tracks (id, title, artist, data) VALUES (?, ?, ?, ?)");
+        BoundStatement boundStatement = new BoundStatement(preparedStatement);
+        boundStatement.bind(track.getTrackId(), track.getTitle(), track.getArtist(), track.getTrackData());
+        session.execute(boundStatement);
     }
 }
