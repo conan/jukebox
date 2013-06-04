@@ -1,10 +1,25 @@
 package conan.rocks.domain;
 
+import com.yammer.dropwizard.json.JsonSnakeCase;
+import org.codehaus.jackson.annotate.JsonProperty;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import java.nio.ByteBuffer;
 
+@JsonSnakeCase
 public class Track {
 
+    @JsonProperty
     private String trackId;
+
+    @JsonProperty
+    @NotEmpty
+    private String title;
+
+    @JsonProperty
+    private String artist;
+
+    @NotEmpty
     private ByteBuffer trackData;
 
     public String getTrackId() {
@@ -13,6 +28,22 @@ public class Track {
 
     public void setTrackId(String trackId) {
         this.trackId = trackId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getArtist() {
+        return artist;
+    }
+
+    public void setArtist(String artist) {
+        this.artist = artist;
     }
 
     public ByteBuffer getTrackData() {
