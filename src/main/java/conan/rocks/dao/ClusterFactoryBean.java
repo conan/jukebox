@@ -2,6 +2,7 @@ package conan.rocks.dao;
 
 import com.datastax.driver.core.Cluster;
 import org.springframework.beans.factory.FactoryBean;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ public class ClusterFactoryBean implements FactoryBean<Cluster> {
     private List<String> contactPoints;
 
     @Override
-    public Cluster getObject() throws Exception {
+    public Cluster getObject() {
         return new Cluster.Builder().addContactPoints(contactPoints.toArray(new String[0])).build();
     }
 

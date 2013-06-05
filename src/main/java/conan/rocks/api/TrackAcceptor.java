@@ -22,18 +22,22 @@ public class TrackAcceptor {
     @Autowired
     private conan.rocks.dao.TrackDao trackDao;
 
-
     @POST
     @Timed
-    public TrackMeta add(@Valid ByteBuffer trackData) {
+    public TrackMeta add(@Valid byte[] trackData) {
+        // Read binary data into ByteBuffer
+        ByteBuffer byteBuffer = ByteBuffer.allocate(Track.MAX_TRACK_BYTES);
+        byteBuffer.put(trackData);
+
+        // Persist track
         Track track = new Track();
         track.setTrackId(UUID.randomUUID().toString());
-        track.setTrackData(trackData);
+        track.setTrackData(byteBuffer);
         trackDao.putTrack(track);
 
+        // Create response
         TrackMeta meta = new TrackMeta();
         meta.setTrackId(track.getTrackId());
         return meta;
     }
-
 }

@@ -9,6 +9,8 @@ import java.nio.ByteBuffer;
 @JsonSnakeCase
 public class Track {
 
+    public static final int MAX_TRACK_BYTES = 1024 * 1024 * 256;
+
     @JsonProperty
     private String trackId;
 
