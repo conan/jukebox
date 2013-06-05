@@ -1,18 +1,21 @@
 package conan.rocks.dao;
 
 import com.datastax.driver.core.Cluster;
+import conan.rocks.CassandraConfiguration;
 import org.springframework.beans.factory.FactoryBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 public class ClusterFactoryBean implements FactoryBean<Cluster> {
 
-    private List<String> contactPoints;
+    @Autowired
+    private CassandraConfiguration cassandraConfiguration;
 
     @Override
     public Cluster getObject() {
-        return new Cluster.Builder().addContactPoints(contactPoints.toArray(new String[0])).build();
+        return new Cluster.Builder().addContactPoints(cassandraConfiguration.getContactPoints().toArray(new String[0])).build();
     }
 
     @Override
@@ -23,9 +26,5 @@ public class ClusterFactoryBean implements FactoryBean<Cluster> {
     @Override
     public boolean isSingleton() {
         return true;
-    }
-
-    public void setContactPoints(List<String> contactPoints) {
-        this.contactPoints = contactPoints;
     }
 }
