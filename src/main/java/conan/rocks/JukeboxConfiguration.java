@@ -9,13 +9,4 @@ import javax.validation.constraints.NotNull;
 
 public class JukeboxConfiguration extends Configuration {
 
-    @Autowired
-    @Valid
-    @NotNull
-    @JsonProperty
-    private CassandraConfiguration cassandraConfiguration;
-
-    public CassandraConfiguration getCassandraConfiguration() {
-        return cassandraConfiguration;
-    }
 }

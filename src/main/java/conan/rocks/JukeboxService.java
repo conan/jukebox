@@ -6,14 +6,20 @@ import com.yammer.dropwizard.config.Environment;
 import conan.rocks.api.TrackAcceptor;
 import conan.rocks.api.TrackResource;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.stereotype.Component;
 
-@org.springframework.stereotype.Service
 public class JukeboxService extends Service<JukeboxConfiguration> {
+
+    public static void main(String[] args) throws Exception {
+        new JukeboxService().run(args);
+    }
 
     @Override
     public void initialize(Bootstrap<JukeboxConfiguration> bootstrap) {
         bootstrap.setName("jukebox");
+
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+        context.scan("conan.rocks");
+        context.refresh();
     }
 
     @Override

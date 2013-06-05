@@ -1,29 +1,27 @@
 package conan.rocks;
 
-import com.yammer.dropwizard.config.Configuration;
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.hibernate.validator.constraints.NotEmpty;
+import com.datastax.driver.core.Cluster;
+import com.datastax.driver.core.Session;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 
-import javax.validation.Valid;
-import java.util.List;
+@Configuration
+@PropertySource(value = "classpath:cassandra.properties")
+public class CassandraConfiguration {
 
-public class CassandraConfiguration extends Configuration {
+    @Autowired
+    Environment env;
 
-    @Valid
-    @JsonProperty
-    @NotEmpty
-    private List<String> contactPoints;
-
-    @Valid
-    @JsonProperty
-    @NotEmpty
-    private String keyspaceName;
-
-    public List<String> getContactPoints() {
-        return contactPoints;
+    @Bean
+    public Cluster cluster() {
+        return new Cluster.Builder().addContactPoints(env.getProperty("contactPoints").split(",")).build();
     }
 
-    public String getKeyspaceName() {
-        return keyspaceName;
+    @Bean
+    public Session session() {
+        return cluster().connect(env.getProperty("keyspaceName"));
     }
 }
