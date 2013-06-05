@@ -1,6 +1,9 @@
-create keyspace jukebox
-  with placement_strategy = 'SimpleStrategy'
-  and strategy_options = {replication_factor : 1}
-  and durable_writes = true;
+CREATE KEYSPACE jukebox
+    WITH REPLICATION = {'class' : 'NetworkTopologyStrategy', 'dc1' : 1}
+    AND durable_writes = true;
 
-use jukebox;
+USE jukebox;
+
+CREATE TABLE jukebox.tracks (
+     track_id UUID PRIMARY KEY
+);
